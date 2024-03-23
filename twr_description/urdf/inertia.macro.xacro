@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+ 
+    <xacro:macro name="box_inertia" params="m l w h *origin">
+        <inertial>
+            <mass value="${m}"/>
+            <inertia 
+                ixx="${(m/12) * (h*h + l*l)}" ixy="0.0" ixz="0.0" 
+                iyy="${(m/12) * (w*w + l*l)}" iyz="0.0" 
+                izz="${(m/12) * (w*w + h*h)}" />
+        </inertial>
+        <xacro:insert_block name="origin"/>
+    </xacro:macro> 
+
+    <xacro:macro name="cylinder_inertia" params="m r l *origin">
+        <inertial>
+            <mass value="${m}"/>    
+            <inertia 
+                ixx="${m*l*l/12 + m*r*r/4}" ixy="0.0" ixz="0.0" 
+                iyy="${m*l*l/12 + m*r*r/4}" iyz="0.0" 
+                izz="${m*r*r/2}" />
+            <xacro:insert_block name="origin"/>
+        </inertial>
+    </xacro:macro>
+
+    <xacro:macro name="sphere_inertial" params="m r *origin">
+        <inertial>
+            <mass value="${m}"/>
+            <inertia 
+                ixx="${m*r*r*2/5}" ixy="0.0" ixz="0.0"
+                iyy="${m*r*r*2/5}" iyz="0.0"
+                izz="${m*r*r*2/5}" />
+                <xacro:insert_block name="origin"/>
+        </inertial>
+    </xacro:macro>
+    
+</robot>
