@@ -19,9 +19,9 @@ def generate_launch_description():
     # === robot_state_publisher ===
     # =============================
     rsp_pkg_path = FindPackageShare('twr_sim')
-    rsp_ld_source = PythonLaunchDescriptionSource(
-        [PathJoinSubstitution([rsp_pkg_path, 'launch', 'rsp.launch.py'])]
-    )
+    rsp_ld_source = PythonLaunchDescriptionSource([
+        PathJoinSubstitution([rsp_pkg_path, 'launch', 'rsp.launch.py'])
+    ])
 
     rsp_ld = IncludeLaunchDescription(
         rsp_ld_source,
@@ -32,9 +32,9 @@ def generate_launch_description():
     # === GAZEBO ====
     # ===============
     gazebo_pkg_path = FindPackageShare('gazebo_ros')
-    gazebo_ld_source = PythonLaunchDescriptionSource(
-        [PathJoinSubstitution([gazebo_pkg_path, 'launch', 'gazebo.launch.py'])]
-    )
+    gazebo_ld_source = PythonLaunchDescriptionSource([
+        PathJoinSubstitution([gazebo_pkg_path, 'launch', 'gazebo.launch.py'])
+    ])
 
     gazebo_ld = IncludeLaunchDescription(gazebo_ld_source)
 
