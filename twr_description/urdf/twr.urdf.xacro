@@ -3,6 +3,7 @@
 
     <xacro:include filename="_inertia.macro.xacro"/>
     <xacro:include filename="_colors.xacro"/>
+    <xacro:include filename="ros2_control.xacro"/>
 
     <xacro:property name="mm2m" value="0.001"/>
 

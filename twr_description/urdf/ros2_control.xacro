@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <ros2_control>
+        <hardware>
+            <!-- name of hardware interface 
+            it will talk to Gazebo just like a normal hardware interface -->
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+        </hardware>
+
+        <joint name="left_wheel_joint">
+            <comand_interface name="velocity">
+                <param name="min">-10</param>
+                <param name="max">10</param>
+            </comand_interface>
+
+            <state_interface name="velocity" />
+            <state_interface name="position" />
+        </joint>
+
+        <joint name="right_wheel_joint">
+            <comand_interface name="velocity">
+                <param name="min">-10</param>
+                <param name="max">10</param>
+            </comand_interface>
+
+            <state_interface name="velocity" />
+            <state_interface name="position" />
+        </joint>
+
+    </ros2_control>
+
+</robot>
