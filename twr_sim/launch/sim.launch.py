@@ -16,11 +16,11 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     # =============================
-    # === robot_state_publisher ===
+    # === Robot State Publisher ===
     # =============================
-    rsp_pkg_path = FindPackageShare('twr_sim')
+    twr_control_pkg_path = FindPackageShare('twr_control')
     rsp_ld_source = PythonLaunchDescriptionSource([
-        PathJoinSubstitution([rsp_pkg_path, 'launch', 'rsp.launch.py'])
+        PathJoinSubstitution([twr_control_pkg_path, 'launch', 'rsp.launch.py'])
     ])
 
     rsp_ld = IncludeLaunchDescription(
@@ -28,26 +28,30 @@ def generate_launch_description():
         launch_arguments={'use_sim_time': 'True'}.items()
     )
     
-    # ===============
-    # === GAZEBO ====
-    # ===============
-    gazebo_pkg_path = FindPackageShare('gazebo_ros')
-    gazebo_ld_source = PythonLaunchDescriptionSource([
-        PathJoinSubstitution([gazebo_pkg_path, 'launch', 'gazebo.launch.py'])
+    # ===================
+    # === Gazebo Sim ====
+    # ===================
+    ros_gz_pkg_path = FindPackageShare('ros_gz_sim')
+    ros_gz_ld_source = PythonLaunchDescriptionSource([
+        PathJoinSubstitution([ros_gz_pkg_path, 'launch', 'gz_sim.launch.py'])
     ])
 
-    gazebo_ld = IncludeLaunchDescription(gazebo_ld_source)
+    ros_gz_ld = IncludeLaunchDescription(ros_gz_ld_source)
 
     # === spawn_entity ===
+    # robot_description from robot_state_publisher node
+    spawn_entity_node_param = {'name' : 'twr',
+                               'topic': 'robot_description'}
+
     spawn_entity_node = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=['-topic', 'robot_description',
-                   '-entity', 'twr_model']
+        package='ros_gz_sim',
+        executable='create',
+        output='screen',
+        parameters=[spawn_entity_param]
     )
 
     ld.add_action(rsp_ld)
-    ld.add_action(gazebo_ld)
+    ld.add_action(ros_gz_ld)
     ld.add_action(spawn_entity_node)
     
     return ld

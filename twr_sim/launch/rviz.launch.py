@@ -18,7 +18,7 @@ def generate_launch_description():
     # =============================
     # === robot_state_publisher ===
     # =============================
-    rsp_pkg_path = FindPackageShare('twr_sim')
+    rsp_pkg_path = FindPackageShare('twr_control')
     rsp_ld_source = PythonLaunchDescriptionSource([
         PathJoinSubstitution([rsp_pkg_path, 'launch', 'rsp.launch.py'])
     ])
